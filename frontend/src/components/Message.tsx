@@ -1,6 +1,19 @@
 
 import { Timestamp } from "firebase/firestore"
 
+function formatTimeStamp(ts: Timestamp) {
+    const date = ts.toDate()
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth()).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month}/${year}/${hours}:${minutes}`;
+}
+
 type MessageProps = {
     createdAt?: Timestamp | null
     text?: string
@@ -20,24 +33,24 @@ const Message = ({
                 <img
                     src={photoURL}
                     alt="Avatar"
-                    className="h-8 w-8 rounded-full">
+                    className="h-10 w-10 rounded-full">
                 </img>
             ) : null}
 
             <div className="max-w-[75%]">
                 {displayName && (
-                    <div className="text-xs text-gray-700 mb-1">{displayName}</div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">{displayName}</div>
+                )}
+
+                {createdAt && (
+                    <div className="text-[11px] text-gray-700 mt-1">
+                        {formatTimeStamp(createdAt)}
+                    </div>
                 )}
 
                 <div className="rounded-2xl px-3 py-2 bg-blue-400 border shadow-sm leading-snug break-words">
                     {text}
                 </div>
-
-                {createdAt && (
-                    <div className="text-[11px] text-gray-700 mt-1">
-                        {/* formatted time */}
-                    </div>
-                )}
             </div>
         </div>
     );

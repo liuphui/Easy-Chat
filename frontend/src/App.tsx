@@ -1,5 +1,4 @@
 
-import Button from './components/Button'
 import Channel from './components/Channel'
 
 import { useState, useEffect } from "react"
@@ -67,31 +66,34 @@ function App() {
   if (initialising) return "Loading...";
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="h-screen flex flex-col overflow-hidden">
 
       {/* Navigation bar */}
-      <nav className="h-14 flex items-center justify-between px-6 bg-white">
-        <div className="text-lg font-semibold text-blue-600">
-          SimpleChat
+      <nav className="bg-blue-600 px-8 py-4 flex items-center justify-between text-white shadow-sm">
+        <div className="flex items-center gap-4">
+          <span className="text-xl font-semibold">
+            SimpleChat
+          </span>
         </div>
 
-        {/* Actions */}
-        {user && (
-          <button
-            onClick={signOut}
-            className="text-sm font-medium text-gray-700 hover:text-red-600 transition"
-          >
-            Sign out
-          </button>
-        )}
+        <div>
+          {user && (
+            <button
+              onClick={signOut}
+              className="text-sm font-medium text-gray-700 hover:text-red-400 transition"
+            >
+              Sign out
+            </button>
+          )}
+        </div>
       </nav>
 
       {/* Main content */}
-      <div className="flex-1">
+      <div className="flex flex-1 overflow-hidden">
         {user ? (
           <Channel user={user} db={db}></Channel>
         ) : (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex flex-1 items-center justify-center">
             <button
               onClick={signInWithGoogle}
               className="bg-blue-600 text-white px-4 py-2 rounded"

@@ -92,36 +92,38 @@ const Channel = ({ user, db }: ChannelProps) => {
     }
 
     return (
-        <div className="h-screen w-screen bg-gray-100">
-            <div className="h-full max-2xl mx-auto p-4">
-                <div className="h-full rounded-2xl border bg-white shadow-sm overflow-hidden flex flex-col">
-                    
-                    {/* Header */}
-                    <header className="px-4 py-3 border-b">
-                        <div className="font-semibold">Simple Chat</div>
-                        <div className="text-sm text-gray-700">{messages.length} messages</div>
-                    </header>
-                    {/* Messages */}
-                    <ul className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
-                        {messages.map((message) => (
-                            <li key={message.id}>
-                                <Message {...message}></Message>
-                            </li>
-                        ))}
-                    </ul>
-                    <form onSubmit={handleOnSubmit} className="flex border-t p-2 gap-2">
-                        <input
-                            value={newMessage}
-                            onChange={handleOnChange}
-                            className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring"
-                            placeholder="Type a message…"
-                        />
-                        <button
-                            type="submit"
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                        >Send</button>
-                    </form>
-                </div>
+        <div className="flex-col flex-1 overflow-hidden bg-gray-100">
+            {/* Header */}
+            <div className="shrink-0 px-4 py-3 border-g bg-white">
+                <h1 className="text-2xl font-semibold text-center">Welcome to SimpleChat</h1>
+            </div>
+
+            {/* Text Channel */}
+            <div className="flex flex-1 flex-col w-full mx-auto p-4 overflow-hidden">
+                {/* Messages */}
+                <ul className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 bg-gray-50 rounded">
+                    {messages.map((message) => (
+                        <li key={message.id}>
+                            <Message {...message}></Message>
+                        </li>
+                    ))}
+                </ul>
+
+                <form 
+                    onSubmit={handleOnSubmit} 
+                    className="shrink-0 border-t p-3 flex gap-2 bg-white"
+                >
+                    <input
+                        value={newMessage}
+                        onChange={handleOnChange}
+                        className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring"
+                        placeholder="Type a message…"
+                    />
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    >Send</button>
+                </form>
             </div>
         </div>
     )
