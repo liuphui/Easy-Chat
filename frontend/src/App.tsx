@@ -1,5 +1,6 @@
 
 import Channel from './components/Channel'
+import logo from './assets/logo.png'
 
 import { useState, useEffect } from "react"
 import { initializeApp } from "firebase/app"
@@ -23,6 +24,12 @@ export const googleProvider = new GoogleAuthProvider()
 function App() {
   const [user, setUser] = useState(() => auth.currentUser);
   const [initialising, setInitialising] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -66,25 +73,46 @@ function App() {
   if (initialising) return "Loading...";
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className={`${darkMode ? "dark" : ""} h-screen flex flex-col overflow-hidden`}>
 
       {/* Navigation bar */}
-      <nav className="bg-blue-600 px-8 py-4 flex items-center justify-between text-white shadow-sm">
-        <div className="flex items-center gap-4">
-          <span className="text-xl font-semibold">
-            SimpleChat
-          </span>
+      <nav className="bg-gray-700 px-6 py-2 flex items-center justify-between text-white shadow-sm">
+
+        {/* Left NavBar */}
+        <div className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-20 w-20">
+          </img>
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-2xl font-semibold">
+              SimpleChat
+            </span>
+          </div>
         </div>
 
-        <div>
-          {user && (
-            <button
-              onClick={signOut}
-              className="text-sm font-medium text-white hover:text-red-400 transition"
-            >
-              Sign out
-            </button>
-          )}
+        {/* Right NavBar */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleDarkMode}
+            className="text-sm px-3 py-1 rounded border
+               border-gray-300 dark:border-gray-600
+               text-gray-800 dark:text-gray-100
+               hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+          <div>
+            {user && (
+              <button
+                onClick={signOut}
+                className="text-sm font-medium text-white hover:text-red-400 transition"
+              >
+                Sign out
+              </button>
+            )}
+          </div>
         </div>
       </nav>
 

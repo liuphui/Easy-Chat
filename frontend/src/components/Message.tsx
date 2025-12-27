@@ -39,11 +39,11 @@ const Message = ({
 
             <div className="max-w-[75%]">
                 {displayName && (
-                    <div className="text-xs font-semibold text-gray-700 mb-1">{displayName}</div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1 dark:text-white">{displayName}</div>
                 )}
 
                 {createdAt && (
-                    <div className="text-[11px] text-gray-700 mt-1">
+                    <div className="text-[11px] text-gray-700 mt-1 dark:text-white">
                         {formatTimeStamp(createdAt)}
                     </div>
                 )}
