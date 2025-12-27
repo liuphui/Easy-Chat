@@ -48,7 +48,7 @@ const Message = ({
                     </div>
                 )}
 
-                <div className="rounded-2xl px-3 py-2 bg-blue-400 border shadow-sm leading-snug break-words">
+                <div className="rounded-2xl px-3 py-2 bg-blue-400 border shadow-sm leading-snug break-words inline-block">
                     {text}
                 </div>
             </div>
