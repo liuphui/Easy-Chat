@@ -1,4 +1,5 @@
 import Button from './components/Button'
+import Channel from './components/Channel'
 
 import { useState, useEffect } from "react"
 import { initializeApp } from "firebase/app"
@@ -31,7 +32,7 @@ function App() {
         setUser(null);
       }
 
-      if (initialising){
+      if (initialising) {
         setInitialising(false);
       }
     });
@@ -54,7 +55,7 @@ function App() {
     try {
       await auth.signOut();
     } catch (error) {
-      if (error instanceof Error){
+      if (error instanceof Error) {
         console.log(error.message)
       } else {
         console.log("Unknown error", error);
@@ -62,14 +63,14 @@ function App() {
     }
   };
 
-  if(initialising) return "Loading...";
+  if (initialising) return "Loading...";
 
   return (
     <div>
       {user ? (
         <>
           <Button onClick={signOut}>Sign out</Button>
-          <p>"Welcome to the chat"</p>
+          <Channel user={user} db={db}></Channel>
         </>
       ) : (
         <Button onClick={signInWithGoogle}>Sign in with Google</Button>
