@@ -1,3 +1,4 @@
+
 import Button from './components/Button'
 import Channel from './components/Channel'
 
@@ -66,15 +67,40 @@ function App() {
   if (initialising) return "Loading...";
 
   return (
-    <div>
-      {user ? (
-        <>
-          <Button onClick={signOut}>Sign out</Button>
+    <div className="min-h-screen bg-gray-100">
+
+      {/* Navigation bar */}
+      <nav className="h-14 flex items-center justify-between px-6 bg-white">
+        <div className="text-lg font-semibold text-blue-600">
+          SimpleChat
+        </div>
+
+        {/* Actions */}
+        {user && (
+          <button
+            onClick={signOut}
+            className="text-sm font-medium text-gray-700 hover:text-red-600 transition"
+          >
+            Sign out
+          </button>
+        )}
+      </nav>
+
+      {/* Main content */}
+      <div className="flex-1">
+        {user ? (
           <Channel user={user} db={db}></Channel>
-        </>
-      ) : (
-        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
-      )}
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <button
+              onClick={signInWithGoogle}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Sign in with Google
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
