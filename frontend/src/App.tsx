@@ -80,7 +80,7 @@ function App() {
           {user && (
             <button
               onClick={signOut}
-              className="text-sm font-medium text-gray-700 hover:text-red-400 transition"
+              className="text-sm font-medium text-white hover:text-red-400 transition"
             >
               Sign out
             </button>
