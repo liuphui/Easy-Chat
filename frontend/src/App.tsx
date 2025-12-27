@@ -52,7 +52,7 @@ function App() {
 
   const signOut = async () => {
     try {
-      await signOut();
+      await auth.signOut();
     } catch (error) {
       if (error instanceof Error){
         console.log(error.message)
@@ -67,7 +67,10 @@ function App() {
   return (
     <div>
       {user ? (
-        "Welcome to the chat"
+        <>
+          <Button onClick={signOut}>Sign out</Button>
+          <p>"Welcome to the chat"</p>
+        </>
       ) : (
         <Button onClick={signInWithGoogle}>Sign in with Google</Button>
       )}
