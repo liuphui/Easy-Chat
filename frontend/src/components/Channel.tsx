@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { User } from "firebase/auth";
 import {
   Firestore,
@@ -31,6 +31,11 @@ type MessageType = {
 const Channel = ({ user, db }: ChannelProps) => {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   useEffect(() => {
     const messagesRef = collection(db, "messages");
@@ -114,6 +119,8 @@ const Channel = ({ user, db }: ChannelProps) => {
               <Message {...message} />
             </li>
           ))}
+
+          <div ref={bottomRef}/>
         </ul>
 
         <form
