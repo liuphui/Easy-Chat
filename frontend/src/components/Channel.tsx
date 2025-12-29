@@ -35,11 +35,22 @@ const Channel = ({ user, db }: ChannelProps) => {
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [replyTo, setReplyTo] = useState<{ id: string; text: string } | null>(null);
 
   const addEmoji = (emoji: string) => {
     setNewMessage(prev => prev + emoji);
     setShowEmojis(false);
   };
+
+  const handleReply = (id: string, text?: string) => {
+    setReplyTo({ id, text: text ?? "" });
+  };
+
+  // Called when user clicks a reaction emoji on a message
+  const handleReact = async (id: string, emoji: string) => {
+    // simplest: just log for now
+    console.log("React:", { id, emoji });
+  }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -124,12 +135,31 @@ const Channel = ({ user, db }: ChannelProps) => {
 
           {messages.map((message) => (
             <li key={message.id}>
-              <Message {...message} />
+              <Message {...message}
+                onReply={handleReply}
+                onReact={handleReact}
+              />
             </li>
           ))}
 
           <div ref={bottomRef} />
         </ul>
+
+        {replyTo && (
+            <div className="w-full mb-2 flex items-center justify-between gap-2 rounded border bg-gray-50 px-3 py-2 text-sm">
+              <div className="truncate">
+                <span className="font-semibold">Replying to:</span>{" "}
+                <span className="text-gray-600">{replyTo.text}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReplyTo(null)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+          )}
 
         <form
           onSubmit={handleOnSubmit}
