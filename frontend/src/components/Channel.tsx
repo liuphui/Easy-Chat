@@ -28,10 +28,18 @@ type MessageType = {
   photoURL: string;
 };
 
+const emojis = ["😀", "😂", "😍", "👍", "🔥", "🎉"];
+
 const Channel = ({ user, db }: ChannelProps) => {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const [showEmojis, setShowEmojis] = useState(false);
+
+  const addEmoji = (emoji: string) => {
+    setNewMessage(prev => prev + emoji);
+    setShowEmojis(false);
+  };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -120,7 +128,7 @@ const Channel = ({ user, db }: ChannelProps) => {
             </li>
           ))}
 
-          <div ref={bottomRef}/>
+          <div ref={bottomRef} />
         </ul>
 
         <form
@@ -136,6 +144,36 @@ const Channel = ({ user, db }: ChannelProps) => {
                        focus:outline-none focus:ring"
             placeholder="Type a message…"
           />
+
+          <div className="relative">
+            {/* Emoji button */}
+            <button
+              onClick={() => setShowEmojis(prev => !prev)}
+              type="button"
+              className="p-2 rounded hover:bg-gray-200">
+              🙂
+            </button>
+
+            {/* Emoji Picker */}
+            {showEmojis && (
+              <div className="absolute bottom-full mb-2 right-0
+              bg-white border rounded shadow-lg p-2 z-50
+              grid grid-flow-col auto-cols-max gap-2
+              w-fit">
+                {emojis.map(emoji => (
+                  <button
+                    type="button"
+                    key={emoji}
+                    onClick={() => addEmoji(emoji)}
+                    className="text-xl hover:bg-gray-100 rounded"
+                  >
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
