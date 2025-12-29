@@ -79,7 +79,7 @@ function App() {
       <nav className="bg-gray-700 px-6 py-2 flex items-center justify-between text-white shadow-sm">
 
         {/* Left NavBar */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3">
           <img
             src={logo}
             alt="Logo"
@@ -93,10 +93,10 @@ function App() {
         </div>
 
         {/* Right NavBar */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3">
           <button
             onClick={toggleDarkMode}
-            className="px-3 py-1 rounded border text-white"
+            className="text-sm font-medium text-white hover:text-red-400"
           >
             {darkMode ? "☀️ Light" : "🌙 Dark"}
           </button>
@@ -104,7 +104,7 @@ function App() {
             {user && (
               <button
                 onClick={signOut}
-                className="text-sm font-medium text-white hover:text-red-400 transition"
+                className="text-sm font-medium text-white hover:text-red-400"
               >
                 Sign out
               </button>
